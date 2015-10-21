@@ -1,0 +1,34 @@
+{
+  "name": "cloudwatch-logs-janitor",
+  "description": "For the tedious destruction of AWS CloudWatch resources, especially relating to AWS Lambda.",
+  "keywords": [
+    "aws",
+    "cloudwatch",
+    "lambda",
+    "janitor"
+  ],
+  "version": "0.1.0",
+  "homepage": "https://github.com/exratione/cloudwatch-logs-janitor",
+  "author": "Reason <reason@exratione.com>",
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "dependencies": {
+    "async": "1.4.2",
+    "aws-sdk": "2.2.3",
+    "chai": "3.1.0",
+    "grunt": "0.4.5",
+    "grunt-eslint": "17.1.0",
+    "grunt-mocha-test": "0.12.7",
+    "lodash": "3.10.0",
+    "sinon": "1.15.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exratione/cloudwatch-logs-janitor"
+  },
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://github.com/exratione/cloudwatch-logs-janitor/raw/master/LICENSE"
+  }]
+}
