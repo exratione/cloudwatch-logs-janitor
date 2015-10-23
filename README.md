@@ -52,7 +52,11 @@ janitor.getAllLogGroups(function (error, logGroups) {
 });
 
 janitor.getMatchingLogGroups({
+  // Only match log groups created prior to this Date instance.
   createdBefore: new Date(),
+  // Exclude log groups with names matching this RegExp instance.
+  exclude: /something|anything/i,
+  // Only match log groups with names that begin with this prefix.
   prefix: '/aws/lambda/'
 }, function (error, logGroups) {
   if (error) {
@@ -87,7 +91,11 @@ janitor.deleteLogGroups([
 });
 
 janitor.deleteMatchingLogGroups({
+  // Only match log groups created prior to this Date instance.
   createdBefore: new Date(),
+  // Exclude log groups with names matching this RegExp instance.
+  exclude: /something|anything/i,
+  // Only match log groups with names that begin with this prefix.
   prefix: '/aws/lambda/'
 }, function (error) {
   if (error) {
@@ -100,7 +108,7 @@ janitor.deleteMatchingLogGroups({
 ```
 
 When listing or deleting log groups, using the name prefix is much faster than
-other filters. The prefix can be passed into the API, whereas the other filters
-require all of the log groups in the account to be loaded for comparison. This
-can require multiple sequential API calls, as the size limit of the response
-is small.
+other filters. The prefix can be passed into the AWS API for listing log groups,
+whereas the other filters require all of the log groups in the account to be
+loaded for comparison. This can require multiple sequential API calls, as the
+size limit placed on the response is small.

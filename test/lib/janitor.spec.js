@@ -26,19 +26,19 @@ describe('lib/janitor', function () {
 
     logGroupObjects = [
       {
-        logGroupName: 'a-name',
+        logGroupName: 'a-name-1',
         creationTime: creationTime
       },
       {
-        logGroupName: 'b-name',
+        logGroupName: 'b-name-2',
         creationTime: creationTime
       },
       {
-        logGroupName: 'c-name',
+        logGroupName: 'c-name-3',
         creationTime: olderCreationTime
       },
       {
-        logGroupName: 'd-name',
+        logGroupName: 'd-name-4',
         creationTime: olderCreationTime
       }
     ];
@@ -173,6 +173,29 @@ describe('lib/janitor', function () {
       });
     });
 
+    it('calls back with filtered log groups by RegExp', function (done) {
+      var options = {
+        exclude: /\-[12]$/
+      };
+
+      janitor.getMatchingLogGroups(options, function (error, logGroups) {
+        expect(logGroups).to.eql(logGroupObjects.slice(2));
+
+        sinon.assert.calledOnce(janitor.cwlClient.describeLogGroups);
+        sinon.assert.calledWith(
+          janitor.cwlClient.describeLogGroups,
+          {
+            limit: janitor.describeLogGroupsLimit,
+            logGroupNamePrefix: undefined,
+            nextToken: undefined
+          },
+          sinon.match.func
+        );
+
+        done(error);
+      });
+    });
+
     it('calls back with error for API error', function (done) {
       janitor.cwlClient.describeLogGroups.yields(new Error());
 
@@ -236,6 +259,33 @@ describe('lib/janitor', function () {
         )).to.equal(true);
 
         done(error);
+      });
+    });
+
+    it('calls back with error for bad options.createdBefore type', function (done) {
+      options.createdBefore = {};
+
+      janitor.getMatchingLogGroups(options, function (error, logGroups) {
+        expect(error).to.be.instanceOf(Error);
+        done();
+      });
+    });
+
+    it('calls back with error for bad options.exclude type', function (done) {
+      options.exclude = 'string';
+
+      janitor.getMatchingLogGroups(options, function (error, logGroups) {
+        expect(error).to.be.instanceOf(Error);
+        done();
+      });
+    });
+
+    it('calls back with error for bad options.prefix type', function (done) {
+      options.prefix = {};
+
+      janitor.getMatchingLogGroups(options, function (error, logGroups) {
+        expect(error).to.be.instanceOf(Error);
+        done();
       });
     });
   });
@@ -312,7 +362,7 @@ describe('lib/janitor', function () {
         sinon.assert.callCount(janitor.deleteLogGroup, 4);
         sinon.assert.alwaysCalledWith(
           janitor.deleteLogGroup,
-          sinon.match(/^[abcd]\-name$/),
+          sinon.match(/^[abcd]\-name/),
           sinon.match.func
         );
 
