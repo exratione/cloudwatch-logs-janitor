@@ -11,24 +11,22 @@
   "homepage": "https://github.com/exratione/cloudwatch-logs-janitor",
   "author": "Reason <reason@exratione.com>",
   "engines": {
-    "node": ">= 0.10"
+    "node": ">= 12.0.0"
   },
   "dependencies": {
     "async": "1.4.2",
     "aws-sdk": "2.2.3",
-    "chai": "3.1.0",
-    "grunt": "0.4.5",
-    "grunt-eslint": "17.1.0",
-    "grunt-mocha-test": "0.12.7",
-    "lodash": "3.10.0",
+    "chai": "4.2.0",
+    "grunt": "1.0.4",
+    "grunt-eslint": "22.0.0",
+    "grunt-mocha-test": "0.13.3",
+    "lodash": "4.17.15",
+    "mocha": "6.2.2",
     "sinon": "1.15.4"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/exratione/cloudwatch-logs-janitor"
   },
-  "licenses": [{
-    "type": "MIT",
-    "url": "https://github.com/exratione/cloudwatch-logs-janitor/raw/master/LICENSE"
-  }]
+  "license": "MIT"
 }

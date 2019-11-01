@@ -21,7 +21,9 @@ describe('lib/janitor', function () {
   beforeEach(function () {
     janitor = new Janitor();
 
-    creationTime = (new Date()).getTime();
+    // Need slightly older times to ensure that the comparison always
+    // triggers, even on ultrafast machinery.
+    creationTime = (new Date()).getTime() - 1000;
     olderCreationTime = creationTime - 10000;
 
     logGroupObjects = [
