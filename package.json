@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "async": "1.4.2",
-    "aws-sdk": "2.2.3",
+    "aws-sdk": "2.814.0",
     "chai": "4.2.0",
     "grunt": "1.0.4",
     "grunt-eslint": "22.0.0",
